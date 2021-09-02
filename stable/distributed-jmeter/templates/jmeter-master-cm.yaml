@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: jmeter-master-cm
+  labels:
+    heritage: {{ .Release.Service | quote }}
+    release: {{ .Release.Name | quote }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    app: {{ template "distributed-jmeter.fullname" . }}
+data:
+{{ (.Files.Glob "scripts/*").AsConfig | indent 2 }}
